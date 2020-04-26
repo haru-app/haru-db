@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.2" last-position="0,114" last-zoom="1" max-obj-count="6"
+	 default-schema="public" default-owner="postgres">
+<role name="haru0129"
+      superuser="true"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<database name="haru" encoding="UTF8" lc-collate="en_US.utf8" lc-ctype="en_US.utf8" is-template="false" allow-conns="true">
+	<role name="postgres"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" layer="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="user" layer="0" alias="사용자" collapse-mode="2" max-obj-count="7">
+	<schema name="public"/>
+	<role name="haru0129"/>
+	<comment><![CDATA[사용자]]></comment>
+	<position x="1060" y="180"/>
+	<column name="userIdx" alias="사용자 인덱스" not-null="true">
+		<type name="serial" length="0"/>
+		<comment><![CDATA[사용자 인덱스]]></comment>
+	</column>
+	<column name="email" alias="이메일" not-null="true">
+		<type name="varchar" length="60"/>
+		<comment><![CDATA[이메일]]></comment>
+	</column>
+	<column name="password" alias="비밀번호" not-null="true">
+		<type name="varchar" length="30"/>
+		<comment><![CDATA[비밀번호]]></comment>
+	</column>
+	<column name="userName" alias="사용자 이름" not-null="true">
+		<type name="varchar" length="20"/>
+		<comment><![CDATA[사용자 이름]]></comment>
+	</column>
+	<column name="createTime" alias="가입시간" not-null="true" default-value="now()">
+		<type name="timestamp" length="30"/>
+		<comment><![CDATA[가입시간]]></comment>
+	</column>
+	<column name="updateTime" alias="수정시간" not-null="true" default-value="now()">
+		<type name="timestamp" length="30"/>
+		<comment><![CDATA[수정시간]]></comment>
+	</column>
+	<constraint name="user_pk" type="pk-constr" table="public.&quot;user&quot;">
+		<columns names="userIdx" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="diary" layer="0" alias="일기" collapse-mode="2" max-obj-count="7">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[일기]]></comment>
+	<position x="1420" y="180"/>
+	<column name="diaryIdx" alias="일기 인덱스" not-null="true">
+		<type name="serial" length="0"/>
+		<comment><![CDATA[일기 인덱스]]></comment>
+	</column>
+	<column name="userIdx" alias="사용자 인덱스" not-null="true">
+		<type name="integer" length="60"/>
+		<comment><![CDATA[사용자 인덱스]]></comment>
+	</column>
+	<column name="title" alias="제목" not-null="true">
+		<type name="varchar" length="60"/>
+		<comment><![CDATA[제목]]></comment>
+	</column>
+	<column name="content" alias="내용" not-null="true">
+		<type name="text" length="0"/>
+		<comment><![CDATA[내용]]></comment>
+	</column>
+	<column name="createTime" alias="작성시간" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[작성시간]]></comment>
+	</column>
+	<column name="updateTime" alias="수정시간" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[수정시간]]></comment>
+	</column>
+	<constraint name="diary_pk" type="pk-constr" table="public.diary">
+		<columns names="diaryIdx" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="friend" layer="0" alias="친구" collapse-mode="2" max-obj-count="3">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[친구]]></comment>
+	<position x="620" y="180"/>
+	<column name="userIdx" alias="사용자 인덱스" not-null="true">
+		<type name="integer" length="60"/>
+		<comment><![CDATA[사용자 인덱스]]></comment>
+	</column>
+	<column name="friendUserIdx" alias="친구 인덱스" not-null="true">
+		<type name="integer" length="20"/>
+		<comment><![CDATA[친구 인덱스]]></comment>
+	</column>
+	<column name="createTime" alias="팔로잉 시간" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[팔로잉 시간]]></comment>
+	</column>
+	<constraint name="friend_pk" type="pk-constr" table="public.friend">
+		<columns names="userIdx,friendUserIdx" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="requestFriend" layer="0" alias="친구 요청" collapse-mode="2" max-obj-count="3">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[친구 요청]]></comment>
+	<position x="580" y="440"/>
+	<column name="userIdx" alias="사용자 인덱스" not-null="true">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[사용자 인덱스]]></comment>
+	</column>
+	<column name="friendUserIdx" alias="친구 인덱스" not-null="true">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[친구 인덱스]]></comment>
+	</column>
+	<column name="createTime" alias="요청 시간" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[요청 시간]]></comment>
+	</column>
+	<constraint name="requestFriend_pk" type="pk-constr" table="public.&quot;requestFriend&quot;">
+		<columns names="userIdx,friendUserIdx" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="diary_userIdx_fk" type="fk-constr" alias="일기장 사용자 인덱스" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.diary">
+	<columns names="userIdx" ref-type="src-columns"/>
+	<columns names="userIdx" ref-type="dst-columns"/>
+		<comment><![CDATA[일기장 사용자 인덱스]]></comment>
+</constraint>
+
+<constraint name="friend_userIdx" type="fk-constr" alias="친구 사용자 인덱스" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.friend">
+	<columns names="userIdx" ref-type="src-columns"/>
+	<columns names="userIdx" ref-type="dst-columns"/>
+		<comment><![CDATA[친구 사용자 인덱스]]></comment>
+</constraint>
+
+<constraint name="friend_targetUserIdx" type="fk-constr" alias="친구 친구 사용자 인덱스" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.friend">
+	<columns names="userIdx" ref-type="src-columns"/>
+	<columns names="userIdx" ref-type="dst-columns"/>
+		<comment><![CDATA[친구 친구 사용자 인덱스]]></comment>
+</constraint>
+
+<constraint name="requestFriend_userIdx" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.&quot;requestFriend&quot;">
+	<columns names="userIdx" ref-type="src-columns"/>
+	<columns names="userIdx" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="requestFriend_friendUserIdx" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.&quot;requestFriend&quot;">
+	<columns names="friendUserIdx" ref-type="src-columns"/>
+	<columns names="userIdx" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_new_table_user" type="relfk" layer="0"
+	 src-table="public.diary"
+	 dst-table="public.&quot;user&quot;" reference-fk="diary_userIdx_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_following_user" type="relfk" layer="0"
+	 src-table="public.friend"
+	 dst-table="public.&quot;user&quot;" reference-fk="friend_userIdx"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_following_user1" type="relfk" layer="0"
+	 src-table="public.friend"
+	 dst-table="public.&quot;user&quot;" reference-fk="friend_targetUserIdx"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_requestFriend_user&quot;" type="relfk" layer="0"
+	 src-table="public.&quot;requestFriend&quot;"
+	 dst-table="public.&quot;user&quot;" reference-fk="requestFriend_userIdx"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_requestFriend_user1&quot;" type="relfk" layer="0"
+	 src-table="public.&quot;requestFriend&quot;"
+	 dst-table="public.&quot;user&quot;" reference-fk="requestFriend_friendUserIdx"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
