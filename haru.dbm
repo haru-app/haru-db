@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" last-position="0,114" last-zoom="1" max-obj-count="6"
+<dbmodel pgmodeler-ver="0.9.3-alpha" last-position="0,0" last-zoom="1" max-obj-count="8"
 	 default-schema="public" default-owner="postgres">
 <role name="haru0129"
       superuser="true"
@@ -21,11 +21,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <schema name="public" layer="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
-<table name="user" layer="0" alias="사용자" collapse-mode="2" max-obj-count="7">
+<table name="user" layer="0" alias="사용자" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="public"/>
 	<role name="haru0129"/>
 	<comment><![CDATA[사용자]]></comment>
-	<position x="1060" y="180"/>
+	<position x="1060" y="60"/>
 	<column name="userIdx" alias="사용자 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[사용자 인덱스]]></comment>
@@ -55,11 +55,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="diary" layer="0" alias="일기" collapse-mode="2" max-obj-count="7">
+<table name="diary" layer="0" alias="일기" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[일기]]></comment>
-	<position x="1420" y="180"/>
+	<position x="1520" y="40"/>
 	<column name="diaryIdx" alias="일기 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[일기 인덱스]]></comment>
@@ -89,11 +89,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="friend" layer="0" alias="친구" collapse-mode="2" max-obj-count="3">
+<table name="friend" layer="0" alias="친구" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[친구]]></comment>
-	<position x="620" y="180"/>
+	<position x="1040" y="420"/>
 	<column name="userIdx" alias="사용자 인덱스" not-null="true">
 		<type name="integer" length="60"/>
 		<comment><![CDATA[사용자 인덱스]]></comment>
@@ -111,11 +111,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="requestFriend" layer="0" alias="친구 요청" collapse-mode="2" max-obj-count="3">
+<table name="requestFriend" layer="0" alias="친구 요청" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[친구 요청]]></comment>
-	<position x="580" y="440"/>
+	<position x="680" y="420"/>
 	<column name="userIdx" alias="사용자 인덱스" not-null="true">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[사용자 인덱스]]></comment>
@@ -133,25 +133,48 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<constraint name="diary_userIdx_fk" type="fk-constr" alias="일기장 사용자 인덱스" comparison-type="MATCH FULL"
+<table name="exchangeDiary" layer="0" alias="교환일기" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[교환일기]]></comment>
+	<position x="1480" y="420"/>
+	<column name="eDiaryIdx" alias="교환일기 인덱스" not-null="true">
+		<type name="serial" length="0"/>
+		<comment><![CDATA[교환일기 인덱스]]></comment>
+	</column>
+	<column name="userIdx" alias="사용자 인덱스" not-null="true">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[사용자 인덱스]]></comment>
+	</column>
+	<column name="friendUserIdx" alias="친구 사용자 인덱스">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[친구 사용자 인덱스]]></comment>
+	</column>
+	<column name="diaryIdx" alias="일기 인덱스" not-null="true">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[일기 인덱스]]></comment>
+	</column>
+	<constraint name="exchangeDiary_pk" type="pk-constr" table="public.&quot;exchangeDiary&quot;">
+		<columns names="eDiaryIdx" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="diary_userIdx_fk" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.diary">
 	<columns names="userIdx" ref-type="src-columns"/>
 	<columns names="userIdx" ref-type="dst-columns"/>
-		<comment><![CDATA[일기장 사용자 인덱스]]></comment>
 </constraint>
 
-<constraint name="friend_userIdx" type="fk-constr" alias="친구 사용자 인덱스" comparison-type="MATCH FULL"
+<constraint name="friend_userIdx" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.friend">
 	<columns names="userIdx" ref-type="src-columns"/>
 	<columns names="userIdx" ref-type="dst-columns"/>
-		<comment><![CDATA[친구 사용자 인덱스]]></comment>
 </constraint>
 
-<constraint name="friend_targetUserIdx" type="fk-constr" alias="친구 친구 사용자 인덱스" comparison-type="MATCH FULL"
+<constraint name="friend_targetUserIdx" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.friend">
 	<columns names="userIdx" ref-type="src-columns"/>
 	<columns names="userIdx" ref-type="dst-columns"/>
-		<comment><![CDATA[친구 친구 사용자 인덱스]]></comment>
 </constraint>
 
 <constraint name="requestFriend_userIdx" type="fk-constr" comparison-type="MATCH FULL"
@@ -164,6 +187,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.&quot;requestFriend&quot;">
 	<columns names="friendUserIdx" ref-type="src-columns"/>
 	<columns names="userIdx" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="exchangeDiary_userIdx_friendUserIdx" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.friend" table="public.&quot;exchangeDiary&quot;">
+	<columns names="userIdx,friendUserIdx" ref-type="src-columns"/>
+	<columns names="userIdx,friendUserIdx" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="exchangeDiary_diaryIdx" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.diary" table="public.&quot;exchangeDiary&quot;">
+	<columns names="diaryIdx" ref-type="src-columns"/>
+	<columns names="diaryIdx" ref-type="dst-columns"/>
 </constraint>
 
 <relationship name="rel_new_table_user" type="relfk" layer="0"
@@ -189,6 +224,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="&quot;rel_requestFriend_user1&quot;" type="relfk" layer="0"
 	 src-table="public.&quot;requestFriend&quot;"
 	 dst-table="public.&quot;user&quot;" reference-fk="requestFriend_friendUserIdx"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_exchangeDiary_friend&quot;" type="relfk" layer="0"
+	 src-table="public.&quot;exchangeDiary&quot;"
+	 dst-table="public.friend" reference-fk="exchangeDiary_userIdx_friendUserIdx"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_exchangeDiary_diary&quot;" type="relfk" layer="0"
+	 src-table="public.&quot;exchangeDiary&quot;"
+	 dst-table="public.diary" reference-fk="exchangeDiary_diaryIdx"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>
