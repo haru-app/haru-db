@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3-alpha" last-position="0,0" last-zoom="1" max-obj-count="8"
+<dbmodel pgmodeler-ver="0.9.3-alpha" last-position="0,0" last-zoom="1" max-obj-count="9"
 	 default-schema="public" default-owner="postgres">
 <role name="haru0129"
       superuser="true"
@@ -133,11 +133,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="exchangeDiary" layer="0" alias="교환일기" collapse-mode="2" max-obj-count="4" z-value="0">
+<table name="exchangeDiary" layer="0" alias="교환일기" collapse-mode="2" max-obj-count="6" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[교환일기]]></comment>
-	<position x="1480" y="420"/>
+	<position x="1480" y="400"/>
 	<column name="eDiaryIdx" alias="교환일기 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[교환일기 인덱스]]></comment>
@@ -146,7 +146,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer" length="0"/>
 		<comment><![CDATA[사용자 인덱스]]></comment>
 	</column>
-	<column name="friendUserIdx" alias="친구 사용자 인덱스">
+	<column name="friendUserIdx" alias="친구 사용자 인덱스" not-null="true">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[친구 사용자 인덱스]]></comment>
 	</column>
@@ -154,9 +154,40 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer" length="0"/>
 		<comment><![CDATA[일기 인덱스]]></comment>
 	</column>
+	<column name="createTime" alias="생성 시간" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[생성 시간]]></comment>
+	</column>
 	<constraint name="exchangeDiary_pk" type="pk-constr" table="public.&quot;exchangeDiary&quot;">
 		<columns names="eDiaryIdx" ref-type="src-columns"/>
 	</constraint>
+</table>
+
+<table name="userAuth" layer="0" alias="사용자 인증" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[사용자 인증]]></comment>
+	<position x="640" y="100"/>
+	<column name="authIdx" alias="인증 인덱스" not-null="true">
+		<type name="serial" length="0"/>
+		<comment><![CDATA[인증 인덱스]]></comment>
+	</column>
+	<column name="userIdx" alias="사용자 인덱스" not-null="true">
+		<type name="int4" length="0"/>
+		<comment><![CDATA[사용자 인덱스]]></comment>
+	</column>
+	<column name="authKey" alias="인증 키" not-null="true">
+		<type name="varchar" length="512"/>
+		<comment><![CDATA[인증 키]]></comment>
+	</column>
+	<column name="ExpirationTime" alias="유효기간" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[유효기간]]></comment>
+	</column>
+	<column name="createTime" alias="생성 시간" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[생성 시간]]></comment>
+	</column>
 </table>
 
 <constraint name="diary_userIdx_fk" type="fk-constr" comparison-type="MATCH FULL"
@@ -173,7 +204,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <constraint name="friend_targetUserIdx" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.friend">
-	<columns names="userIdx" ref-type="src-columns"/>
+	<columns names="friendUserIdx" ref-type="src-columns"/>
 	<columns names="userIdx" ref-type="dst-columns"/>
 </constraint>
 
@@ -199,6 +230,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.diary" table="public.&quot;exchangeDiary&quot;">
 	<columns names="diaryIdx" ref-type="src-columns"/>
 	<columns names="diaryIdx" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="userAuth_userIdx_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.&quot;userAuth&quot;">
+	<columns names="userIdx" ref-type="src-columns"/>
+	<columns names="userIdx" ref-type="dst-columns"/>
 </constraint>
 
 <relationship name="rel_new_table_user" type="relfk" layer="0"
@@ -234,6 +271,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="&quot;rel_exchangeDiary_diary&quot;" type="relfk" layer="0"
 	 src-table="public.&quot;exchangeDiary&quot;"
 	 dst-table="public.diary" reference-fk="exchangeDiary_diaryIdx"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_userAuth_user&quot;" type="relfk" layer="0"
+	 src-table="public.&quot;userAuth&quot;"
+	 dst-table="public.&quot;user&quot;" reference-fk="userAuth_userIdx_fk"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>
