@@ -21,7 +21,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <schema name="public" layer="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
-<table name="user" layer="0" alias="사용자" collapse-mode="2" max-obj-count="7" z-value="0">
+<table name="user" layer="0" alias="사용자" collapse-mode="2" max-obj-count="10" z-value="0">
 	<schema name="public"/>
 	<role name="haru0129"/>
 	<comment><![CDATA[사용자]]></comment>
@@ -35,12 +35,24 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<comment><![CDATA[이메일]]></comment>
 	</column>
 	<column name="password" alias="비밀번호" not-null="true">
-		<type name="varchar" length="30"/>
+		<type name="varchar" length="512"/>
 		<comment><![CDATA[비밀번호]]></comment>
 	</column>
 	<column name="userName" alias="사용자 이름" not-null="true">
 		<type name="varchar" length="20"/>
 		<comment><![CDATA[사용자 이름]]></comment>
+	</column>
+	<column name="birthday" alias="생년월일">
+		<type name="date" length="0"/>
+		<comment><![CDATA[생년월일]]></comment>
+	</column>
+	<column name="isAuth" alias="인증여부" not-null="true" default-value="FALSE">
+		<type name="smallint" length="0"/>
+		<comment><![CDATA[인증여부]]></comment>
+	</column>
+	<column name="authIdx" alias="인증 인덱스">
+		<type name="int4" length="0"/>
+		<comment><![CDATA[인증 인덱스]]></comment>
 	</column>
 	<column name="createTime" alias="가입시간" not-null="true" default-value="now()">
 		<type name="timestamp" length="30"/>
@@ -52,6 +64,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</column>
 	<constraint name="user_pk" type="pk-constr" table="public.&quot;user&quot;">
 		<columns names="userIdx" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="user_email_unq" type="uq-constr" table="public.&quot;user&quot;">
+		<columns names="email" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -163,7 +178,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="userAuth" layer="0" alias="사용자 인증" collapse-mode="2" max-obj-count="6" z-value="0">
+<table name="userAuth" layer="0" alias="사용자 인증" collapse-mode="2" max-obj-count="4" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[사용자 인증]]></comment>
@@ -171,10 +186,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="authIdx" alias="인증 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[인증 인덱스]]></comment>
-	</column>
-	<column name="userIdx" alias="사용자 인덱스" not-null="true">
-		<type name="int4" length="0"/>
-		<comment><![CDATA[사용자 인덱스]]></comment>
 	</column>
 	<column name="authKey" alias="인증 키" not-null="true">
 		<type name="varchar" length="512"/>
@@ -188,7 +199,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="timestamp" length="0"/>
 		<comment><![CDATA[생성 시간]]></comment>
 	</column>
+	<constraint name="userAuth_primary" type="pk-constr" table="public.&quot;userAuth&quot;">
+		<columns names="authIdx" ref-type="src-columns"/>
+	</constraint>
 </table>
+
+<constraint name="user_userAuth_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;userAuth&quot;" table="public.&quot;user&quot;">
+	<columns names="authIdx" ref-type="src-columns"/>
+	<columns names="authIdx" ref-type="dst-columns"/>
+</constraint>
 
 <constraint name="diary_userIdx_fk" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.diary">
@@ -232,12 +252,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="diaryIdx" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="userAuth_userIdx_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.&quot;userAuth&quot;">
-	<columns names="userIdx" ref-type="src-columns"/>
-	<columns names="userIdx" ref-type="dst-columns"/>
-</constraint>
-
 <relationship name="rel_new_table_user" type="relfk" layer="0"
 	 src-table="public.diary"
 	 dst-table="public.&quot;user&quot;" reference-fk="diary_userIdx_fk"
@@ -273,9 +287,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="public.diary" reference-fk="exchangeDiary_diaryIdx"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="&quot;rel_userAuth_user&quot;" type="relfk" layer="0"
-	 src-table="public.&quot;userAuth&quot;"
-	 dst-table="public.&quot;user&quot;" reference-fk="userAuth_userIdx_fk"
+<relationship name="&quot;rel_user_userAuth&quot;" type="relfk" layer="0"
+	 src-table="public.&quot;user&quot;"
+	 dst-table="public.&quot;userAuth&quot;" reference-fk="user_userAuth_fk"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>
