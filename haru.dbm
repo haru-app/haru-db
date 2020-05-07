@@ -21,11 +21,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <schema name="public" layer="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
-<table name="user" layer="0" alias="사용자" collapse-mode="2" max-obj-count="10" z-value="0">
+<table name="user" layer="0" alias="사용자" collapse-mode="2" max-obj-count="12" z-value="0">
 	<schema name="public"/>
 	<role name="haru0129"/>
 	<comment><![CDATA[사용자]]></comment>
-	<position x="1060" y="60"/>
+	<position x="760" y="180"/>
 	<column name="userIdx" alias="사용자 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[사용자 인덱스]]></comment>
@@ -47,12 +47,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<comment><![CDATA[생년월일]]></comment>
 	</column>
 	<column name="isAuth" alias="인증여부" not-null="true" default-value="FALSE">
-		<type name="smallint" length="0"/>
+		<type name="bool" length="0"/>
 		<comment><![CDATA[인증여부]]></comment>
 	</column>
 	<column name="authIdx" alias="인증 인덱스">
 		<type name="int4" length="0"/>
 		<comment><![CDATA[인증 인덱스]]></comment>
+	</column>
+	<column name="refreshToken" alias="refresh 토큰">
+		<type name="varchar" length="512"/>
+		<comment><![CDATA[refresh 토큰]]></comment>
 	</column>
 	<column name="createTime" alias="가입시간" not-null="true" default-value="now()">
 		<type name="timestamp" length="30"/>
@@ -74,7 +78,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[일기]]></comment>
-	<position x="1520" y="40"/>
+	<position x="740" y="520"/>
 	<column name="diaryIdx" alias="일기 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[일기 인덱스]]></comment>
@@ -108,7 +112,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[친구]]></comment>
-	<position x="1040" y="420"/>
+	<position x="1140" y="520"/>
 	<column name="userIdx" alias="사용자 인덱스" not-null="true">
 		<type name="integer" length="60"/>
 		<comment><![CDATA[사용자 인덱스]]></comment>
@@ -130,7 +134,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[친구 요청]]></comment>
-	<position x="680" y="420"/>
+	<position x="1080" y="240"/>
 	<column name="userIdx" alias="사용자 인덱스" not-null="true">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[사용자 인덱스]]></comment>
@@ -152,7 +156,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[교환일기]]></comment>
-	<position x="1480" y="400"/>
+	<position x="820" y="780"/>
 	<column name="eDiaryIdx" alias="교환일기 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[교환일기 인덱스]]></comment>
@@ -182,7 +186,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[사용자 인증]]></comment>
-	<position x="640" y="100"/>
+	<position x="360" y="240"/>
 	<column name="authIdx" alias="인증 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[인증 인덱스]]></comment>
