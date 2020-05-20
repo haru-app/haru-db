@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" last-position="0,128" last-zoom="1" max-obj-count="7"
+<dbmodel pgmodeler-ver="0.9.3-alpha" last-position="0,0" last-zoom="1" max-obj-count="9"
 	 default-owner="postgres">
 <role name="haru0129"
       superuser="true"
@@ -21,7 +21,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <schema name="public" layer="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
-<table name="user" layer="0" alias="사용자" collapse-mode="2" max-obj-count="12">
+<table name="user" layer="0" alias="사용자" collapse-mode="2" max-obj-count="12" z-value="0">
 	<schema name="public"/>
 	<role name="haru0129"/>
 	<comment><![CDATA[사용자]]></comment>
@@ -74,11 +74,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="diary" layer="0" alias="일기" collapse-mode="2" max-obj-count="7">
+<table name="diary" layer="0" alias="일기" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[일기]]></comment>
-	<position x="400" y="500"/>
+	<position x="420" y="560"/>
 	<column name="diaryIdx" alias="일기 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[일기 인덱스]]></comment>
@@ -108,7 +108,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="friend" layer="0" alias="친구" collapse-mode="2" max-obj-count="3">
+<table name="friend" layer="0" alias="친구" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[친구]]></comment>
@@ -130,11 +130,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="exchangeDiary" layer="0" alias="교환일기" collapse-mode="2" max-obj-count="6">
+<table name="exchangeDiary" layer="0" alias="교환일기" collapse-mode="2" max-obj-count="6" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[교환일기]]></comment>
-	<position x="860" y="520"/>
+	<position x="860" y="560"/>
 	<column name="eDiaryIdx" alias="교환일기 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[교환일기 인덱스]]></comment>
@@ -160,7 +160,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="userAuth" layer="0" alias="사용자 인증" collapse-mode="2" max-obj-count="4">
+<table name="userAuth" layer="0" alias="사용자 인증" collapse-mode="2" max-obj-count="4" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[사용자 인증]]></comment>
@@ -183,6 +183,88 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</column>
 	<constraint name="userAuth_primary" type="pk-constr" table="public.&quot;userAuth&quot;">
 		<columns names="authIdx" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="codeType" layer="0" alias="코드 타입" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[코드 타입]]></comment>
+	<position x="1460" y="240"/>
+	<column name="codeTypeIdx" alias="코드 타입 인덱스" not-null="true">
+		<type name="serial" length="0"/>
+		<comment><![CDATA[코드 타입 인덱스]]></comment>
+	</column>
+	<column name="name" alias="이름" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[이름]]></comment>
+	</column>
+	<constraint name="codeType_pk" type="pk-constr" table="public.&quot;codeType&quot;">
+		<columns names="codeTypeIdx" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="code" layer="0" alias="코드" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[코드]]></comment>
+	<position x="1460" y="460"/>
+	<column name="codeTypeIdx" alias="코드 타입 인덱스" not-null="true">
+		<type name="int4" length="0"/>
+		<comment><![CDATA[코드 타입 인덱스]]></comment>
+	</column>
+	<column name="code" alias="코드" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[코드]]></comment>
+	</column>
+	<column name="name" alias="이름" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[이름]]></comment>
+	</column>
+	<column name="sort" alias="정렬 순서" not-null="true">
+		<type name="int4" length="0"/>
+		<comment><![CDATA[정렬 순서]]></comment>
+	</column>
+	<constraint name="code_pk" type="pk-constr" table="public.code">
+		<columns names="codeTypeIdx,code" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="notice" layer="0" alias="알림" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[알림]]></comment>
+	<position x="40" y="480"/>
+	<column name="noticeIdx" alias="알림 인덱스" not-null="true">
+		<type name="serial" length="0"/>
+		<comment><![CDATA[알림 인덱스]]></comment>
+	</column>
+	<column name="userIdx" alias="사용자 인덱스" not-null="true">
+		<type name="int4" length="0"/>
+		<comment><![CDATA[사용자 인덱스]]></comment>
+	</column>
+	<column name="noticeTypeCode" alias="알림 타입 코드" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[알림 타입 코드]]></comment>
+	</column>
+	<column name="noticeData" alias="알림 데이터" not-null="true">
+		<type name="jsonb" length="0"/>
+		<comment><![CDATA[알림 데이터]]></comment>
+	</column>
+	<column name="isCheck" alias="확인 여부" not-null="true" default-value="FALSE">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[확인 여부]]></comment>
+	</column>
+	<column name="createTime" alias="생성 시간" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[생성 시간]]></comment>
+	</column>
+	<column name="updateTime" alias="확인 시간">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[확인 시간]]></comment>
+	</column>
+	<constraint name="notice_pk" type="pk-constr" table="public.notice">
+		<columns names="noticeIdx" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -222,6 +304,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="diaryIdx" ref-type="dst-columns"/>
 </constraint>
 
+<constraint name="codeCodeTypeFK" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;codeType&quot;" table="public.code">
+	<columns names="codeTypeIdx" ref-type="src-columns"/>
+	<columns names="codeTypeIdx" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="noticeUserFK" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.notice">
+	<columns names="userIdx" ref-type="src-columns"/>
+	<columns names="userIdx" ref-type="dst-columns"/>
+</constraint>
+
 <relationship name="&quot;rel_user_userAuth&quot;" type="relfk" layer="0"
 	 src-table="public.&quot;user&quot;"
 	 dst-table="public.&quot;userAuth&quot;" reference-fk="user_userAuth_fk"
@@ -250,6 +344,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="&quot;rel_exchangeDiary_diary&quot;" type="relfk" layer="0"
 	 src-table="public.&quot;exchangeDiary&quot;"
 	 dst-table="public.diary" reference-fk="exchangeDiary_diaryIdx"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_code_codeType&quot;" type="relfk" layer="0"
+	 src-table="public.code"
+	 dst-table="public.&quot;codeType&quot;" reference-fk="codeCodeTypeFK"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_notice_user" type="relfk" layer="0"
+	 src-table="public.notice"
+	 dst-table="public.&quot;user&quot;" reference-fk="noticeUserFK"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>
