@@ -3,9 +3,17 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3-alpha" last-position="0,0" last-zoom="1" max-obj-count="9"
+<dbmodel pgmodeler-ver="0.9.3-alpha" last-position="15,0" last-zoom="1" max-obj-count="12"
 	 default-owner="postgres">
 <role name="haru0129"
+      superuser="true"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<role name="haru0129_cp"
       superuser="true"
       inherit="true"
       login="true"
@@ -268,6 +276,62 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
+<table name="shareDiary" layer="0" alias="공유 일기" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[공유 일기]]></comment>
+	<position x="640" y="840"/>
+	<column name="sDiaryIdx" alias="공유 일기 idx" not-null="true">
+		<type name="serial" length="0"/>
+		<comment><![CDATA[공유 일기 idx]]></comment>
+	</column>
+	<column name="diaryIdx" alias="일기 인덱스" not-null="true">
+		<type name="int4" length="0"/>
+		<comment><![CDATA[일기 인덱스]]></comment>
+	</column>
+	<column name="shareDiaryType" alias="공유 일기 타입 코드" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[공유 일기 타입 코드]]></comment>
+	</column>
+	<column name="createTime" alias="생성 시간" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[생성 시간]]></comment>
+	</column>
+	<column name="updateTime" alias="수정 시간" not-null="true" default-value="now()">
+		<type name="smallint" length="0"/>
+		<comment><![CDATA[수정 시간]]></comment>
+	</column>
+	<constraint name="shareDiary_pk" type="pk-constr" table="public.&quot;shareDiary&quot;">
+		<columns names="sDiaryIdx" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="myDiary" layer="0" alias="내 일기" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[내 일기]]></comment>
+	<position x="220" y="840"/>
+	<column name="mDiaryIdx" alias="내 일기 idx" not-null="true">
+		<type name="serial" length="0"/>
+		<comment><![CDATA[내 일기 idx]]></comment>
+	</column>
+	<column name="diaryIdx" alias="일기 인덱스" not-null="true">
+		<type name="int4" length="0"/>
+		<comment><![CDATA[일기 인덱스]]></comment>
+	</column>
+	<column name="createTime" alias="생성 시간" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[생성 시간]]></comment>
+	</column>
+	<column name="updateTime" alias="수정 시간" not-null="true" default-value="now()">
+		<type name="smallint" length="0"/>
+		<comment><![CDATA[수정 시간]]></comment>
+	</column>
+	<constraint name="myDiary_pk" type="pk-constr" table="public.&quot;myDiary&quot;">
+		<columns names="mDiaryIdx" ref-type="src-columns"/>
+	</constraint>
+</table>
+
 <constraint name="user_userAuth_fk" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.&quot;userAuth&quot;" table="public.&quot;user&quot;">
 	<columns names="authIdx" ref-type="src-columns"/>
@@ -316,6 +380,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="userIdx" ref-type="dst-columns"/>
 </constraint>
 
+<constraint name="sDiary_diary_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.diary" table="public.&quot;shareDiary&quot;">
+	<columns names="sDiaryIdx" ref-type="src-columns"/>
+	<columns names="diaryIdx" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="myDiary_diary_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.diary" table="public.&quot;myDiary&quot;">
+	<columns names="mDiaryIdx" ref-type="src-columns"/>
+	<columns names="diaryIdx" ref-type="dst-columns"/>
+</constraint>
+
 <relationship name="&quot;rel_user_userAuth&quot;" type="relfk" layer="0"
 	 src-table="public.&quot;user&quot;"
 	 dst-table="public.&quot;userAuth&quot;" reference-fk="user_userAuth_fk"
@@ -354,6 +430,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="rel_notice_user" type="relfk" layer="0"
 	 src-table="public.notice"
 	 dst-table="public.&quot;user&quot;" reference-fk="noticeUserFK"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_shareDiary_diary&quot;" type="relfk" layer="0"
+	 src-table="public.&quot;shareDiary&quot;"
+	 dst-table="public.diary" reference-fk="sDiary_diary_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_shareDiary_cp_diary&quot;" type="relfk" layer="0"
+	 src-table="public.&quot;myDiary&quot;"
+	 dst-table="public.diary" reference-fk="myDiary_diary_fk"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>
