@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3-alpha" last-position="15,0" last-zoom="1" max-obj-count="12"
+<dbmodel pgmodeler-ver="0.9.3-alpha" last-position="75,262" last-zoom="1" max-obj-count="14"
 	 default-owner="postgres">
 <role name="haru0129"
       superuser="true"
@@ -33,7 +33,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="haru0129"/>
 	<comment><![CDATA[사용자]]></comment>
-	<position x="420" y="160"/>
+	<position x="680" y="520"/>
 	<column name="userIdx" alias="사용자 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[사용자 인덱스]]></comment>
@@ -82,11 +82,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="diary" layer="0" alias="일기" collapse-mode="2" max-obj-count="7" z-value="0">
+<table name="diary" layer="0" alias="일기" collapse-mode="2" max-obj-count="9" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[일기]]></comment>
-	<position x="420" y="560"/>
+	<position x="680" y="960"/>
 	<column name="diaryIdx" alias="일기 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[일기 인덱스]]></comment>
@@ -95,13 +95,21 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer" length="60"/>
 		<comment><![CDATA[사용자 인덱스]]></comment>
 	</column>
-	<column name="title" alias="제목" not-null="true">
+	<column name="diaryName" alias="일기 이름" not-null="true">
 		<type name="varchar" length="60"/>
-		<comment><![CDATA[제목]]></comment>
+		<comment><![CDATA[일기 이름]]></comment>
 	</column>
-	<column name="content" alias="내용" not-null="true">
+	<column name="diaryTypeCode" alias="일기 타입 코드" not-null="true">
 		<type name="text" length="0"/>
-		<comment><![CDATA[내용]]></comment>
+		<comment><![CDATA[일기 타입 코드]]></comment>
+	</column>
+	<column name="diaryIconCode" alias="일기 아이콘 코드" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[일기 아이콘 코드]]></comment>
+	</column>
+	<column name="maxPublicTypeCode" alias="최대 공개 범위 코드" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[최대 공개 범위 코드]]></comment>
 	</column>
 	<column name="createTime" alias="작성시간" not-null="true" default-value="now()">
 		<type name="timestamp" length="0"/>
@@ -120,7 +128,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[친구]]></comment>
-	<position x="900" y="240"/>
+	<position x="1300" y="540"/>
 	<column name="userIdx" alias="사용자 인덱스" not-null="true">
 		<type name="integer" length="60"/>
 		<comment><![CDATA[사용자 인덱스]]></comment>
@@ -138,41 +146,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="exchangeDiary" layer="0" alias="교환일기" collapse-mode="2" max-obj-count="6" z-value="0">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<comment><![CDATA[교환일기]]></comment>
-	<position x="860" y="560"/>
-	<column name="eDiaryIdx" alias="교환일기 인덱스" not-null="true">
-		<type name="serial" length="0"/>
-		<comment><![CDATA[교환일기 인덱스]]></comment>
-	</column>
-	<column name="userIdx" alias="사용자 인덱스" not-null="true">
-		<type name="integer" length="0"/>
-		<comment><![CDATA[사용자 인덱스]]></comment>
-	</column>
-	<column name="friendUserIdx" alias="친구 사용자 인덱스" not-null="true">
-		<type name="integer" length="0"/>
-		<comment><![CDATA[친구 사용자 인덱스]]></comment>
-	</column>
-	<column name="diaryIdx" alias="일기 인덱스" not-null="true">
-		<type name="integer" length="0"/>
-		<comment><![CDATA[일기 인덱스]]></comment>
-	</column>
-	<column name="createTime" alias="생성 시간" not-null="true" default-value="now()">
-		<type name="timestamp" length="0"/>
-		<comment><![CDATA[생성 시간]]></comment>
-	</column>
-	<constraint name="exchangeDiary_pk" type="pk-constr" table="public.&quot;exchangeDiary&quot;">
-		<columns names="eDiaryIdx" ref-type="src-columns"/>
-	</constraint>
-</table>
-
 <table name="userAuth" layer="0" alias="사용자 인증" collapse-mode="2" max-obj-count="4" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[사용자 인증]]></comment>
-	<position x="20" y="220"/>
+	<position x="280" y="460"/>
 	<column name="authIdx" alias="인증 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[인증 인덱스]]></comment>
@@ -198,7 +176,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[코드 타입]]></comment>
-	<position x="1460" y="240"/>
+	<position x="1720" y="600"/>
 	<column name="codeTypeIdx" alias="코드 타입 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[코드 타입 인덱스]]></comment>
@@ -216,7 +194,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[코드]]></comment>
-	<position x="1460" y="460"/>
+	<position x="1720" y="820"/>
 	<column name="codeTypeIdx" alias="코드 타입 인덱스" not-null="true">
 		<type name="int4" length="0"/>
 		<comment><![CDATA[코드 타입 인덱스]]></comment>
@@ -242,7 +220,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[알림]]></comment>
-	<position x="40" y="480"/>
+	<position x="280" y="760"/>
 	<column name="noticeIdx" alias="알림 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[알림 인덱스]]></comment>
@@ -276,59 +254,173 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="shareDiary" layer="0" alias="공유 일기" collapse-mode="2" max-obj-count="6" z-value="0">
+<table name="diaryWriting" layer="0" alias="일기 글" collapse-mode="2" max-obj-count="10" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<comment><![CDATA[공유 일기]]></comment>
-	<position x="640" y="840"/>
-	<column name="sDiaryIdx" alias="공유 일기 idx" not-null="true">
+	<comment><![CDATA[일기 글]]></comment>
+	<position x="1120" y="1280"/>
+	<column name="writingIdx" alias="글 인덱스" not-null="true">
 		<type name="serial" length="0"/>
-		<comment><![CDATA[공유 일기 idx]]></comment>
+		<comment><![CDATA[글 인덱스]]></comment>
 	</column>
 	<column name="diaryIdx" alias="일기 인덱스" not-null="true">
 		<type name="int4" length="0"/>
 		<comment><![CDATA[일기 인덱스]]></comment>
 	</column>
-	<column name="shareDiaryType" alias="공유 일기 타입 코드" not-null="true">
+	<column name="userIdx" alias="유저 인덱스" not-null="true">
+		<type name="int4" length="0"/>
+		<comment><![CDATA[유저 인덱스]]></comment>
+	</column>
+	<column name="title" alias="제목" not-null="true">
 		<type name="varchar" length="0"/>
-		<comment><![CDATA[공유 일기 타입 코드]]></comment>
+		<comment><![CDATA[제목]]></comment>
+	</column>
+	<column name="content" alias="내용" not-null="true">
+		<type name="varchar" length="2000"/>
+		<comment><![CDATA[내용]]></comment>
+	</column>
+	<column name="writingDate" alias="작성일" not-null="true">
+		<type name="date" length="0"/>
+		<comment><![CDATA[작성일]]></comment>
+	</column>
+	<column name="publicTypeCode" alias="공개 타입 코드" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[공개 타입 코드]]></comment>
 	</column>
 	<column name="createTime" alias="생성 시간" not-null="true" default-value="now()">
 		<type name="timestamp" length="0"/>
 		<comment><![CDATA[생성 시간]]></comment>
 	</column>
 	<column name="updateTime" alias="수정 시간" not-null="true" default-value="now()">
-		<type name="smallint" length="0"/>
+		<type name="timestamp" length="0"/>
 		<comment><![CDATA[수정 시간]]></comment>
 	</column>
-	<constraint name="shareDiary_pk" type="pk-constr" table="public.&quot;shareDiary&quot;">
-		<columns names="sDiaryIdx" ref-type="src-columns"/>
+	<constraint name="diaryWiting_pk" type="pk-constr" table="public.&quot;diaryWriting&quot;">
+		<columns names="writingIdx" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="myDiary" layer="0" alias="내 일기" collapse-mode="2" max-obj-count="4" z-value="0">
+<table name="diaryMember" layer="0" alias="일기 구성원" collapse-mode="2" max-obj-count="4" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<comment><![CDATA[내 일기]]></comment>
-	<position x="220" y="840"/>
-	<column name="mDiaryIdx" alias="내 일기 idx" not-null="true">
-		<type name="serial" length="0"/>
-		<comment><![CDATA[내 일기 idx]]></comment>
-	</column>
+	<comment><![CDATA[일기 구성원]]></comment>
+	<position x="1140" y="980"/>
 	<column name="diaryIdx" alias="일기 인덱스" not-null="true">
 		<type name="int4" length="0"/>
 		<comment><![CDATA[일기 인덱스]]></comment>
+	</column>
+	<column name="userIdx" alias="유저 인덱스" not-null="true">
+		<type name="int4" length="0"/>
+		<comment><![CDATA[유저 인덱스]]></comment>
+	</column>
+	<column name="createTime" alias="생성 시간" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[생성 시간]]></comment>
+	</column>
+	<column name="updateTime" alias="수정 시간" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[수정 시간]]></comment>
+	</column>
+	<constraint name="diaryMember_pk" type="pk-constr" table="public.&quot;diaryMember&quot;">
+		<columns names="diaryIdx,userIdx" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="writingTag" layer="0" alias="글 해시 태그" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[글 해시 태그]]></comment>
+	<position x="1140" y="1620"/>
+	<column name="writingIdx" alias="글 인덱스" not-null="true">
+		<type name="int4" length="0"/>
+		<comment><![CDATA[글 인덱스]]></comment>
+	</column>
+	<column name="hashTagIdx" alias="해시 태그 인덱스" not-null="true">
+		<type name="int4" length="0"/>
+		<comment><![CDATA[해시 태그 인덱스]]></comment>
 	</column>
 	<column name="createTime" alias="생성 시간" not-null="true" default-value="now()">
 		<type name="timestamp" length="0"/>
 		<comment><![CDATA[생성 시간]]></comment>
 	</column>
 	<column name="updateTime" alias="수정 시간" not-null="true" default-value="now()">
-		<type name="smallint" length="0"/>
+		<type name="timestamp" length="0"/>
 		<comment><![CDATA[수정 시간]]></comment>
 	</column>
-	<constraint name="myDiary_pk" type="pk-constr" table="public.&quot;myDiary&quot;">
-		<columns names="mDiaryIdx" ref-type="src-columns"/>
+	<constraint name="writingTag_pk" type="pk-constr" table="public.&quot;writingTag&quot;">
+		<columns names="writingIdx,hashTagIdx" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="hashTag" layer="0" alias="해시 태그" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[해시 태그]]></comment>
+	<position x="1180" y="1880"/>
+	<column name="hashTagIdx" alias="해시 태그 인덱스" not-null="true">
+		<type name="serial" length="0"/>
+		<comment><![CDATA[해시 태그 인덱스]]></comment>
+	</column>
+	<column name="hashTagName" alias="해시 태그 이름">
+		<type name="smallint" length="0"/>
+		<comment><![CDATA[해시 태그 이름]]></comment>
+	</column>
+	<column name="createTime" alias="생성 시간" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[생성 시간]]></comment>
+	</column>
+	<column name="updateTime" alias="수정 시간" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[수정 시간]]></comment>
+	</column>
+	<constraint name="tag_pk" type="pk-constr" table="public.&quot;hashTag&quot;">
+		<columns names="hashTagIdx" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="storyboard" layer="0" alias="스토리보드" collapse-mode="2" max-obj-count="10" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[스토리보드]]></comment>
+	<position x="680" y="180"/>
+	<column name="storyboardIdx" alias="스토리보드 인덱스" not-null="true">
+		<type name="serial" length="0"/>
+		<comment><![CDATA[스토리보드 인덱스]]></comment>
+	</column>
+	<column name="userIdx" alias="사용자 인덱스" not-null="true">
+		<type name="smallint" length="0"/>
+		<comment><![CDATA[사용자 인덱스]]></comment>
+	</column>
+	<column name="storyboardName" alias="스토리보드 이름" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[스토리보드 이름]]></comment>
+	</column>
+	<column name="content" alias="내용" not-null="true">
+		<type name="jsonb" length="0"/>
+		<comment><![CDATA[내용]]></comment>
+	</column>
+	<column name="startDate" alias="시작일" not-null="true">
+		<type name="date" length="0"/>
+		<comment><![CDATA[시작일]]></comment>
+	</column>
+	<column name="endDate" alias="종료일" not-null="true">
+		<type name="date" length="0"/>
+		<comment><![CDATA[종료일]]></comment>
+	</column>
+	<column name="publicTypeCode" alias="공개 범위 코드" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[공개 범위 코드]]></comment>
+	</column>
+	<column name="createTime" alias="생성 시간" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[생성 시간]]></comment>
+	</column>
+	<column name="updateTime" alias="수정 시간" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[수정 시간]]></comment>
+	</column>
+	<constraint name="storyboard_pk" type="pk-constr" table="public.storyboard">
+		<columns names="storyboardIdx" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -356,18 +448,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="userIdx" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="exchangeDiary_userIdx_friendUserIdx" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.friend" table="public.&quot;exchangeDiary&quot;">
-	<columns names="userIdx,friendUserIdx" ref-type="src-columns"/>
-	<columns names="userIdx,friendUserIdx" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="exchangeDiary_diaryIdx" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.diary" table="public.&quot;exchangeDiary&quot;">
-	<columns names="diaryIdx" ref-type="src-columns"/>
-	<columns names="diaryIdx" ref-type="dst-columns"/>
-</constraint>
-
 <constraint name="codeCodeTypeFK" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;codeType&quot;" table="public.code">
 	<columns names="codeTypeIdx" ref-type="src-columns"/>
@@ -380,16 +460,40 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="userIdx" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="sDiary_diary_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.diary" table="public.&quot;shareDiary&quot;">
-	<columns names="sDiaryIdx" ref-type="src-columns"/>
+<constraint name="diaryWriting_diaryMember_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;diaryMember&quot;" table="public.&quot;diaryWriting&quot;">
+	<columns names="diaryIdx,userIdx" ref-type="src-columns"/>
+	<columns names="diaryIdx,userIdx" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="diaryMember_diary_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.diary" table="public.&quot;diaryMember&quot;">
+	<columns names="diaryIdx" ref-type="src-columns"/>
 	<columns names="diaryIdx" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="myDiary_diary_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.diary" table="public.&quot;myDiary&quot;">
-	<columns names="mDiaryIdx" ref-type="src-columns"/>
-	<columns names="diaryIdx" ref-type="dst-columns"/>
+<constraint name="diaryMember_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.&quot;diaryMember&quot;">
+	<columns names="userIdx" ref-type="src-columns"/>
+	<columns names="userIdx" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="writingTag_writing_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;diaryWriting&quot;" table="public.&quot;writingTag&quot;">
+	<columns names="writingIdx" ref-type="src-columns"/>
+	<columns names="writingIdx" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="writingTag_hashTag_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;hashTag&quot;" table="public.&quot;writingTag&quot;">
+	<columns names="hashTagIdx" ref-type="src-columns"/>
+	<columns names="hashTagIdx" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="storyboard_user_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;user&quot;" table="public.storyboard">
+	<columns names="userIdx" ref-type="src-columns"/>
+	<columns names="userIdx" ref-type="dst-columns"/>
 </constraint>
 
 <relationship name="&quot;rel_user_userAuth&quot;" type="relfk" layer="0"
@@ -412,16 +516,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="public.&quot;user&quot;" reference-fk="friend_targetUserIdx"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="&quot;rel_exchangeDiary_friend&quot;" type="relfk" layer="0"
-	 src-table="public.&quot;exchangeDiary&quot;"
-	 dst-table="public.friend" reference-fk="exchangeDiary_userIdx_friendUserIdx"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="&quot;rel_exchangeDiary_diary&quot;" type="relfk" layer="0"
-	 src-table="public.&quot;exchangeDiary&quot;"
-	 dst-table="public.diary" reference-fk="exchangeDiary_diaryIdx"
-	 src-required="false" dst-required="false"/>
-
 <relationship name="&quot;rel_code_codeType&quot;" type="relfk" layer="0"
 	 src-table="public.code"
 	 dst-table="public.&quot;codeType&quot;" reference-fk="codeCodeTypeFK"
@@ -432,14 +526,34 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="public.&quot;user&quot;" reference-fk="noticeUserFK"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="&quot;rel_shareDiary_diary&quot;" type="relfk" layer="0"
-	 src-table="public.&quot;shareDiary&quot;"
-	 dst-table="public.diary" reference-fk="sDiary_diary_fk"
+<relationship name="&quot;rel_diaryMember_diary&quot;" type="relfk" layer="0"
+	 src-table="public.&quot;diaryMember&quot;"
+	 dst-table="public.diary" reference-fk="diaryMember_diary_fk"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="&quot;rel_shareDiary_cp_diary&quot;" type="relfk" layer="0"
-	 src-table="public.&quot;myDiary&quot;"
-	 dst-table="public.diary" reference-fk="myDiary_diary_fk"
+<relationship name="&quot;rel_diaryMember_user&quot;" type="relfk" layer="0"
+	 src-table="public.&quot;diaryMember&quot;"
+	 dst-table="public.&quot;user&quot;" reference-fk="diaryMember_user_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_diaryWiting_diaryMember&quot;" type="relfk" layer="0"
+	 src-table="public.&quot;diaryWriting&quot;"
+	 dst-table="public.&quot;diaryMember&quot;" reference-fk="diaryWriting_diaryMember_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_writingTag_diaryWriting&quot;" type="relfk" layer="0"
+	 src-table="public.&quot;writingTag&quot;"
+	 dst-table="public.&quot;diaryWriting&quot;" reference-fk="writingTag_writing_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="&quot;rel_writingTag_tag&quot;" type="relfk" layer="0"
+	 src-table="public.&quot;writingTag&quot;"
+	 dst-table="public.&quot;hashTag&quot;" reference-fk="writingTag_hashTag_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_storyboard_user" type="relfk" layer="0"
+	 src-table="public.storyboard"
+	 dst-table="public.&quot;user&quot;" reference-fk="storyboard_user_fk"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>
