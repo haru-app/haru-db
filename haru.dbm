@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3-alpha" last-position="75,262" last-zoom="1" max-obj-count="14"
+<dbmodel pgmodeler-ver="0.9.3-alpha" last-position="0,0" last-zoom="1" max-obj-count="14"
 	 default-owner="postgres">
 <role name="haru0129"
       superuser="true"
@@ -176,7 +176,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[코드 타입]]></comment>
-	<position x="1720" y="600"/>
+	<position x="320" y="1280"/>
 	<column name="codeTypeIdx" alias="코드 타입 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[코드 타입 인덱스]]></comment>
@@ -194,7 +194,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[코드]]></comment>
-	<position x="1720" y="820"/>
+	<position x="320" y="1500"/>
 	<column name="codeTypeIdx" alias="코드 타입 인덱스" not-null="true">
 		<type name="int4" length="0"/>
 		<comment><![CDATA[코드 타입 인덱스]]></comment>
@@ -300,7 +300,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="diaryMember" layer="0" alias="일기 구성원" collapse-mode="2" max-obj-count="4" z-value="0">
+<table name="diaryMember" layer="0" alias="일기 구성원" collapse-mode="2" max-obj-count="6" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[일기 구성원]]></comment>
@@ -313,11 +313,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="int4" length="0"/>
 		<comment><![CDATA[유저 인덱스]]></comment>
 	</column>
-	<column name="createTime" alias="생성 시간" not-null="true">
+	<column name="isAccept" alias="수락 여부" not-null="true" default-value="FALSE">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[수락 여부]]></comment>
+	</column>
+	<column name="createTime" alias="생성 시간" not-null="true" default-value="now()">
 		<type name="timestamp" length="0"/>
 		<comment><![CDATA[생성 시간]]></comment>
 	</column>
-	<column name="updateTime" alias="수정 시간" not-null="true">
+	<column name="updateTime" alias="수정 시간" not-null="true" default-value="now()">
 		<type name="timestamp" length="0"/>
 		<comment><![CDATA[수정 시간]]></comment>
 	</column>
@@ -330,7 +334,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[글 해시 태그]]></comment>
-	<position x="1140" y="1620"/>
+	<position x="1140" y="1580"/>
 	<column name="writingIdx" alias="글 인덱스" not-null="true">
 		<type name="int4" length="0"/>
 		<comment><![CDATA[글 인덱스]]></comment>
@@ -356,7 +360,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[해시 태그]]></comment>
-	<position x="1180" y="1880"/>
+	<position x="1180" y="1780"/>
 	<column name="hashTagIdx" alias="해시 태그 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[해시 태그 인덱스]]></comment>
