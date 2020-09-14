@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3-alpha" last-position="0,360" last-zoom="1" max-obj-count="14"
+<dbmodel pgmodeler-ver="0.9.3-alpha" last-position="0,1243" last-zoom="1" max-obj-count="14"
 	 default-owner="postgres">
 <role name="haru0129"
       superuser="true"
@@ -82,11 +82,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="diary" layer="0" alias="일기" collapse-mode="2" max-obj-count="9" z-value="0">
+<table name="diary" layer="0" alias="일기" collapse-mode="2" max-obj-count="8" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[일기]]></comment>
-	<position x="680" y="960"/>
+	<position x="680" y="980"/>
 	<column name="diaryIdx" alias="일기 인덱스" not-null="true">
 		<type name="serial" length="0"/>
 		<comment><![CDATA[일기 인덱스]]></comment>
@@ -99,17 +99,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="varchar" length="60"/>
 		<comment><![CDATA[일기 이름]]></comment>
 	</column>
-	<column name="diaryTypeCode" alias="일기 타입 코드" not-null="true">
-		<type name="text" length="0"/>
-		<comment><![CDATA[일기 타입 코드]]></comment>
-	</column>
 	<column name="diaryIconCode" alias="일기 아이콘 코드" not-null="true">
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[일기 아이콘 코드]]></comment>
 	</column>
-	<column name="maxPublicTypeCode" alias="최대 공개 범위 코드" not-null="true">
+	<column name="publicRangeCode" alias="공개 범위 코드" not-null="true">
 		<type name="varchar" length="0"/>
-		<comment><![CDATA[최대 공개 범위 코드]]></comment>
+		<comment><![CDATA[공개 범위 코드]]></comment>
 	</column>
 	<column name="createTime" alias="작성시간" not-null="true" default-value="now()">
 		<type name="timestamp" length="0"/>
@@ -172,31 +168,39 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="codeType" layer="0" alias="코드 타입" collapse-mode="2" max-obj-count="2" z-value="0">
+<table name="codeType" layer="0" alias="코드 타입" collapse-mode="2" max-obj-count="4" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[코드 타입]]></comment>
 	<position x="320" y="1280"/>
-	<column name="codeTypeIdx" alias="코드 타입 인덱스" not-null="true">
-		<type name="serial" length="0"/>
-		<comment><![CDATA[코드 타입 인덱스]]></comment>
+	<column name="codeType" alias="코드 타입" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[코드 타입]]></comment>
 	</column>
 	<column name="name" alias="이름" not-null="true">
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[이름]]></comment>
 	</column>
+	<column name="isUse" alias="사용 여부" not-null="true">
+		<type name="bool" length="0"/>
+		<comment><![CDATA[사용 여부]]></comment>
+	</column>
+	<column name="description" alias="설명" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[설명]]></comment>
+	</column>
 	<constraint name="codeType_pk" type="pk-constr" table="public.&quot;codeType&quot;">
-		<columns names="codeTypeIdx" ref-type="src-columns"/>
+		<columns names="codeType" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<table name="code" layer="0" alias="코드" collapse-mode="2" max-obj-count="4" z-value="0">
+<table name="code" layer="0" alias="코드" collapse-mode="2" max-obj-count="6" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[코드]]></comment>
 	<position x="320" y="1500"/>
-	<column name="codeTypeIdx" alias="코드 타입 인덱스" not-null="true">
-		<type name="int4" length="0"/>
+	<column name="codeType" alias="코드 타입 인덱스" not-null="true">
+		<type name="varchar" length="0"/>
 		<comment><![CDATA[코드 타입 인덱스]]></comment>
 	</column>
 	<column name="code" alias="코드" not-null="true">
@@ -211,8 +215,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="int4" length="0"/>
 		<comment><![CDATA[정렬 순서]]></comment>
 	</column>
+	<column name="isUse" alias="사용 여부" not-null="true">
+		<type name="bool" length="0"/>
+		<comment><![CDATA[사용 여부]]></comment>
+	</column>
 	<constraint name="code_pk" type="pk-constr" table="public.code">
-		<columns names="codeTypeIdx,code" ref-type="src-columns"/>
+		<columns names="codeType,code" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -254,7 +262,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="diaryWriting" layer="0" alias="일기 글" collapse-mode="2" max-obj-count="10" z-value="0">
+<table name="diaryWriting" layer="0" alias="일기 글" collapse-mode="2" max-obj-count="9" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<comment><![CDATA[일기 글]]></comment>
@@ -282,10 +290,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="writingDate" alias="작성일" not-null="true">
 		<type name="date" length="0"/>
 		<comment><![CDATA[작성일]]></comment>
-	</column>
-	<column name="publicTypeCode" alias="공개 타입 코드" not-null="true">
-		<type name="varchar" length="0"/>
-		<comment><![CDATA[공개 타입 코드]]></comment>
 	</column>
 	<column name="createTime" alias="생성 시간" not-null="true" default-value="now()">
 		<type name="timestamp" length="0"/>
@@ -411,7 +415,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="date" length="0"/>
 		<comment><![CDATA[종료일]]></comment>
 	</column>
-	<column name="publicTypeCode" alias="공개 범위 코드" not-null="true">
+	<column name="publicRangeCode" alias="공개 범위 코드" not-null="true">
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[공개 범위 코드]]></comment>
 	</column>
@@ -454,8 +458,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <constraint name="codeCodeTypeFK" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="CASCADE" del-action="CASCADE" ref-table="public.&quot;codeType&quot;" table="public.code">
-	<columns names="codeTypeIdx" ref-type="src-columns"/>
-	<columns names="codeTypeIdx" ref-type="dst-columns"/>
+	<columns names="codeType" ref-type="src-columns"/>
+	<columns names="codeType" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="noticeUserFK" type="fk-constr" comparison-type="MATCH FULL"

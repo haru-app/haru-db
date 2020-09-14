@@ -1,8 +1,11 @@
-﻿codeType,code,name,sort
-1,F,친구 요청,1
-1,E,교환 일기 요청,2
-1,C,게시글 댓글,3
-1,L,게시글 좋아요,4
-2,A,전체 공개,1
-2,F,친구 공개,2
-2,N,비공개,3
+﻿codeType,code,name,sort,isUse
+1,F,친구 요청,1,TRUE
+1,E,교환 일기 요청,2,TRUE
+1,C,게시글 댓글,3,TRUE
+1,L,게시글 좋아요,4,TRUE
+2,1,아이콘1,1,TRUE
+2,2,아이콘2,2,TRUE
+2,3,아이콘3,3,TRUE
+3,A,전체 공개,1,TRUE
+3,F,친구 공개,2,TRUE
+3,N,비공개,3,TRUE

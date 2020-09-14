@@ -1,3 +1,4 @@
-﻿codeType,name
-1,noticeTypeCode
-2,shareDiaryType
+﻿codeType,name,isUse,description
+1,noticeTypeCode,TRUE,알림 구분
+2,diaryIconCode,TRUE,다이어리 아이콘 타입
+3,publicRangeCode,TRUE,최대 공개 범위
