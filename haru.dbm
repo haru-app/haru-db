@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3-alpha" last-position="0,1243" last-zoom="1" max-obj-count="14"
+<dbmodel pgmodeler-ver="0.9.3-alpha" last-position="0,676" last-zoom="1" max-obj-count="14"
 	 default-owner="postgres">
 <role name="haru0129"
       superuser="true"
@@ -287,9 +287,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="varchar" length="2000"/>
 		<comment><![CDATA[내용]]></comment>
 	</column>
-	<column name="writingDate" alias="작성일" not-null="true">
-		<type name="date" length="0"/>
-		<comment><![CDATA[작성일]]></comment>
+	<column name="score" alias="평점" not-null="true">
+		<type name="int4" length="0"/>
+		<comment><![CDATA[평점]]></comment>
 	</column>
 	<column name="createTime" alias="생성 시간" not-null="true" default-value="now()">
 		<type name="timestamp" length="0"/>
